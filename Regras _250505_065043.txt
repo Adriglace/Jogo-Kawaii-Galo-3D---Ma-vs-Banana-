@@ -1,0 +1,33 @@
+Claro! Aqui vão as regras do Jogo do Galo 3D: Maçã vs Banana (versão adaptada para seu jogo kawaii), e depois te passo uma sugestão de logotipo fofo também:
+Regras do Jogo do Galo 3D – Maçã vs Banana
+• Objetivo:
+Formar uma linha com 3 frutas iguais (Maçã ou Banana) em qualquer direção:
+• horizontal
+• vertical
+• ou diagonal
+• Jogadores:
+• Jogador 1 (Maçã – 🍎)
+• Jogador 2 (Banana – 🍌)
+Ou pode jogar contra o computador (bot).
+• Como jogar:
+• Cada jogador faz um movimento por vez, clicando em um espaço vazio no tabuleiro 3D.
+• O jogo alterna entre Maçã e Banana automaticamente.
+• Vence quem:
+• Alinhar 3 frutas iguais no tabuleiro 3D (pode ser em qualquer camada ou linha diagonal que cruze camadas).
+• Empate:
+• Se todas as posições forem preenchidas e ninguém tiver alinhado 3 frutas, o jogo termina empatado.
+• Funções extras:
+• Reiniciar partida
+• Modo solo ou dois jogadores
+• Animações fofas ao vencer ou empatar
+Logotipo fofo (sugestão visual):
+Nome:
+“Jogo do Galo 3D – Maçã vs Banana”
+Fonte recomendada: estilo mão desenhada/kawaii como "Comic Neue", "Fredoka", "Baloo 2" ou "Caveat".
+Elementos visuais no logo:
+• Fundo rosa claro com bordas arredondadas
+• Uma Maçã sorrindo de um lado
+• Uma Banana com óculos do outro
+• Entre eles, o texto com coração ou tabuleiro 3D estilizado
+• Detalhes como estrelinhas, brilho e gotas de suco
+Posso gerar esse logotipo ilustrado para você amanhã (limite de imagem foi atingido hoje). Deseja que ele seja em formato horizontal, quadrado ou redondo para o blog?

@@ -1,0 +1,73 @@
+Jogo do Galo 3D - Maçã vs Banana body { font-family: 'Comic Sans MS', cursive; background: linear-gradient(to right, #ffd8ec, #e0f7ff); margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; } .tela, .jogo { display: none; flex-direction: column; align-items: center; } .ativa { display: flex; } .titulo { font-size: 2em; color: #ff4f79; margin: 20px; } .botao { padding: 10px 20px; font-size: 1em; margin: 10px; border-radius: 12px; border: none; background-color: #fff0f5; cursor: pointer; box-shadow: 2px 2px 4px rgba(0,0,0,0.1); } .tabuleiro { display: grid; grid-template-columns: repeat(3, 100px); grid-template-rows: repeat(3, 100px); gap: 10px; margin: 20px; } .casa { width: 100px; height: 100px; background: #ffffffcc; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 2em; cursor: pointer; } .fruta { font-size: 2.5em; } .pontuacao { font-size: 1em; margin: 10px; color: #a94c7c; } 
+Jogo do Galo 3D - Maçã vs Banana
+ Singleplayer Multiplayer 
+Maçã: 0 | Banana: 0
+Reiniciar 
+ Voltar ao início 
+const inicio = document.getElementById('inicio'); const jogo = document.getElementById('jogo'); const fim = document.getElementById('fim'); const tabuleiro = document.getElementById('tabuleiro'); const vezText = document.getElementById('vez'); const mensagemFim = document.getElementById('mensagemFim'); const placar = document.getElementById('placar'); let jogadorAtual = 'maçã'; let modo = 'single'; let tab = Array(9).fill(null); let pontuacao = { maçã: 0, banana: 0 }; function iniciarJogo(modoSelecionado) { modo = modoSelecionado; inicio.classList.remove('ativa'); jogo.classList.add('ativa'); jogadorAtual = 'maçã'; tab = Array(9).fill(null); atualizarTabuleiro(); atualizarVez(); } function atualizarTabuleiro() { tabuleiro.innerHTML = ''; tab.forEach((val, i) => { const casa = document.createElement('div'); casa.className = 'casa'; casa.onclick = () => jogar(i); casa.innerHTML = val ? frutaEmoji(val) : ''; tabuleiro.appendChild(casa); }); } function frutaEmoji(fruta) { return fruta === 'maçã' ? '🍎' : '🍌'; } function atualizarVez() { vezText.textContent = `Vez da ${frutaEmoji(jogadorAtual)}!`; placar.textContent = `Maçã: ${pontuacao.maçã} | Banana: ${pontuacao.banana}`; } function jogar(i) { if (tab[i] || verificarVitoria()) return; tab[i] = jogadorAtual; atualizarTabuleiro(); if (verificarVitoria()) { fimDeJogo(`${frutaEmoji(jogadorAtual)} venceu!`); pontuacao[jogadorAtual]++; return; } if (!tab.includes(null)) { fimDeJogo('Empate!'); return; } jogadorAtual = jogadorAtual === 'maçã' ? 'banana' : 'maçã'; atualizarVez(); if (modo === 'single' && jogadorAtual === 'banana') setTimeout(jogadaBot, 500); } function jogadaBot() { let livres = tab.map((v, i) => v ? null : i).filter(v => v !== null); let escolha = livres[Math.floor(Math.random() * livres.length)]; jogar(escolha); } function verificarVitoria() { const linhas = [ [0,1,2],[3,4,5],[6,7,8], [0,3,6],[1,4,7],[2,5,8], [0,4,8],[2,4,6] ]; return linhas.some(l => l.every(i => tab[i] === jogadorAtual)); } function fimDeJogo(msg) { jogo.classList.remove('ativa'); fim.classList.add('ativa'); mensagemFim.textContent = msg; } function reiniciar() { tab = Array(9).fill(null); jogadorAtual = 'maçã'; atualizarTabuleiro(); atualizarVez(); } function voltarInicio() { fim.classList.remove('ativa'); inicio.classList.add('ativa'); } 
+
+Botão Atalho Visual:
+Claro! Um atalho visual é como um botão fofo no seu blog que, ao ser clicado, abre o jogo direto. Vou te gerar um código com um botão no estilo da sua marca Adriglace, com maçãs e bananas kawaii, luzinhas e o texto “Jogar Agora!”.
+Aqui está o código do atalho visual (você pode colar no seu blog, onde quiser que apareça o botão):
+<a href="https://drive.google.com/file/d/1B0YKTaBNLcAkyM2ou83mnW0Kixr1RPaZ/view?usp=drivesdk" target="_blank" style="text-decoration: none;"> <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden;"> 🍎 Jogar Agora! 🍌 <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span> </div> </a> 
+Instruções para usar:
+• Envie o arquivo do jogo jogo_kawaii_galo_3d.html para o seu blog (ou Google Drive / hospedagem);
+• Substitua no código acima o href="jogo_kawaii_galo_3d.html" pelo link completo onde você hospedou o jogo;
+• Cole o código HTML no local desejado do seu blog (ex: postagem ou menu).
+Quer que eu gere também uma imagem fofa com o botão “Jogar Agora” para usar como alternativa?
+
+Botão 02:
+iframe src="https://jogo-kawaii-galo3d.netlify.app/" width="800" height="600" frameborder="0" allowfullscreen></iframe>
+
+Link hospedagem do jogo:
+https://jogo-kawaii-galo3d.netlify.app/
+
+Botao 02 visual:
+<a href="https://jogo-kawaii-galo3d.netlify.app/" target="_blank" style="text-decoration: none;"> <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden;"> 🍎 Jogar Agora! 🍌 <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span> </div> </a> 
+
+https://imgur.com/a/IA8FI3s
+https://i.imgur.com/dQaaLzX.png
+
+Botao 03 com imagem:
+<div style="text-align: center; margin-top: 30px;">
+  <img src="https://i.imgur.com/0fgsNli.png" alt="Maçã vs Banana" style="width: 150px; margin-bottom: 10px;">
+
+  <a href="https://jogo-kawaii-galo3d.netlify.app/" target="_blank" style="text-decoration: none;" aria-label="Jogar Jogo do Galo Kawaii">
+    <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden;">
+      🍎 Jogar Agora! 🍌
+      <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span>
+    </div>
+  </a>
+</div>
+
+Botao 04
+<div style="text-align: center; margin-top: 30px;">
+  <img src="https://i.imgur.com/dQaaLzX.png" alt="Maçã vs Banana" style="width: 150px; margin-bottom: 10px;">
+
+  <a href="https://jogo-kawaii-galo3d.netlify.app/" target="_blank" style="text-decoration: none;" aria-label="Jogar Jogo do Galo Kawaii">
+    <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden;">
+      🍎 Jogar Agora! 🍌
+      <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span>
+    </div>
+  </a>
+</div>
+
+Botão 05:
+<div style="text-align: center; margin-top: 30px;">
+  <img src="https://i.imgur.com/2VtzA5u.png" alt="Maçã vs Banana" style="width: 150px; margin-bottom: 10px;">
+
+  <a href="https://jogo-kawaii-galo3d.netlify.app/" target="_blank" style="text-decoration: none;" aria-label="Jogar Jogo do Galo Kawaii">
+    <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden;">
+      🍎 Jogar Agora! 🍌
+      <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span>
+    </div>
+  </a>
+</div>
+
+https://i.imgur.com/2VtzA5u.png
+
+------------.
+Maravilha! Aqui está o botão com animação suave ao passar o mouse (hover): ele dá um pulinho e brilha um pouquinho:
+<div style="text-align: center; margin-top: 30px;"> <img src="https://i.imgur.com/0fgsNli.png" alt="Maçã vs Banana" style="width: 150px; margin-bottom: 10px;"> <a href="https://jogo-kawaii-galo3d.netlify.app/" target="_blank" style="text-decoration: none;" aria-label="Jogar Jogo do Galo Kawaii"> <div style="display: inline-block; padding: 15px 25px; border-radius: 25px; background: linear-gradient(to right, #ffe0f0, #d0f4ff); box-shadow: 0 4px 12px rgba(0,0,0,0.2); font-family: 'Comic Sans MS', cursive; color: #ff4f79; font-size: 20px; position: relative; overflow: hidden; transition: all 0.3s ease; transform: scale(1);" onmouseover="this.style.transform='scale(1.08)'; this.style.boxShadow='0 6px 16px rgba(0,0,0,0.3)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.2)';"> 🍎 Jogar Agora! 🍌 <span style="position: absolute; top: -5px; right: -5px; font-size: 16px; color: #ffc107;">★</span> </div> </a> </div> 
+Esse efeito deixa o botão mais chamativo, ideal para crianças e visitantes curiosos.
+Se quiser um efeito ainda mais "kawaii", posso colocar brilho cintilante, balões ou luzinhas também. Deseja algo assim?

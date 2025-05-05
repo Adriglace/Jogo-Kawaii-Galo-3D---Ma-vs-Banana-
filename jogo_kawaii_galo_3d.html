@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo do Galo 3D - Maçã vs Banana</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background: linear-gradient(to right, #ffd8ec, #e0f7ff);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .tela, .jogo {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+    }
+    .ativa {
+      display: flex;
+    }
+    .titulo {
+      font-size: 2em;
+      color: #ff4f79;
+      margin: 20px;
+    }
+    .botao {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin: 10px;
+      border-radius: 12px;
+      border: none;
+      background-color: #fff0f5;
+      cursor: pointer;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    .tabuleiro {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 10px;
+      margin: 20px;
+    }
+    .casa {
+      width: 100px;
+      height: 100px;
+      background: #ffffffcc;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+      cursor: pointer;
+    }
+    .fruta {
+      font-size: 2.5em;
+    }
+    .pontuacao {
+      font-size: 1em;
+      margin: 10px;
+      color: #a94c7c;
+    }
+  </style>
+</head>
+<body>
+  <div class="tela ativa" id="inicio">
+    <div class="titulo">Jogo do Galo 3D - Maçã vs Banana</div>
+    <img src="https://cdn-icons-png.flaticon.com/512/590/590685.png" width="100" alt="bananas pulando">
+    <button class="botao" onclick="iniciarJogo('single')">Singleplayer</button>
+    <button class="botao" onclick="iniciarJogo('multi')">Multiplayer</button>
+  </div>
+
+  <div class="jogo" id="jogo">
+    <div class="titulo" id="vez"></div>
+    <div class="tabuleiro" id="tabuleiro"></div>
+    <div class="pontuacao" id="placar">Maçã: 0 | Banana: 0</div>
+    <button class="botao" onclick="reiniciar()">Reiniciar</button>
+  </div>
+
+  <div class="tela" id="fim">
+    <div class="titulo" id="mensagemFim"></div>
+    <img src="https://cdn-icons-png.flaticon.com/512/415/415682.png" width="100" alt="maçãs rolando">
+    <button class="botao" onclick="voltarInicio()">Voltar ao início</button>
+  </div>
+
+  <script>
+    const inicio = document.getElementById('inicio');
+    const jogo = document.getElementById('jogo');
+    const fim = document.getElementById('fim');
+    const tabuleiro = document.getElementById('tabuleiro');
+    const vezText = document.getElementById('vez');
+    const mensagemFim = document.getElementById('mensagemFim');
+    const placar = document.getElementById('placar');
+
+    let jogadorAtual = 'maçã';
+    let modo = 'single';
+    let tab = Array(9).fill(null);
+    let pontuacao = { maçã: 0, banana: 0 };
+
+    function iniciarJogo(modoSelecionado) {
+      modo = modoSelecionado;
+      inicio.classList.remove('ativa');
+      jogo.classList.add('ativa');
+      jogadorAtual = 'maçã';
+      tab = Array(9).fill(null);
+      atualizarTabuleiro();
+      atualizarVez();
+    }
+
+    function atualizarTabuleiro() {
+      tabuleiro.innerHTML = '';
+      tab.forEach((val, i) => {
+        const casa = document.createElement('div');
+        casa.className = 'casa';
+        casa.onclick = () => jogar(i);
+        casa.innerHTML = val ? frutaEmoji(val) : '';
+        tabuleiro.appendChild(casa);
+      });
+    }
+
+    function frutaEmoji(fruta) {
+      return fruta === 'maçã' ? '🍎' : '🍌';
+    }
+
+    function atualizarVez() {
+      vezText.textContent = `Vez da ${frutaEmoji(jogadorAtual)}!`;
+      placar.textContent = `Maçã: ${pontuacao.maçã} | Banana: ${pontuacao.banana}`;
+    }
+
+    function jogar(i) {
+      if (tab[i] || verificarVitoria()) return;
+      tab[i] = jogadorAtual;
+      atualizarTabuleiro();
+      if (verificarVitoria()) {
+        fimDeJogo(`${frutaEmoji(jogadorAtual)} venceu!`);
+        pontuacao[jogadorAtual]++;
+        return;
+      }
+      if (!tab.includes(null)) {
+        fimDeJogo('Empate!');
+        return;
+      }
+      jogadorAtual = jogadorAtual === 'maçã' ? 'banana' : 'maçã';
+      atualizarVez();
+      if (modo === 'single' && jogadorAtual === 'banana') setTimeout(jogadaBot, 500);
+    }
+
+    function jogadaBot() {
+      let livres = tab.map((v, i) => v ? null : i).filter(v => v !== null);
+      let escolha = livres[Math.floor(Math.random() * livres.length)];
+      jogar(escolha);
+    }
+
+    function verificarVitoria() {
+      const linhas = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      return linhas.some(l => l.every(i => tab[i] === jogadorAtual));
+    }
+
+    function fimDeJogo(msg) {
+      jogo.classList.remove('ativa');
+      fim.classList.add('ativa');
+      mensagemFim.textContent = msg;
+    }
+
+    function reiniciar() {
+      tab = Array(9).fill(null);
+      jogadorAtual = 'maçã';
+      atualizarTabuleiro();
+      atualizarVez();
+    }
+
+    function voltarInicio() {
+      fim.classList.remove('ativa');
+      inicio.classList.add('ativa');
+    }
+  </script>
+</body>
+</html>
